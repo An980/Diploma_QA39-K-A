@@ -55,7 +55,7 @@ public class PlayerTest {
 
     }
     @Test
-    public void ifNotRegistredThanRunTimeException() {
+    public void ifNotInstalledThanRunTimeException() {
         GameStore store = new GameStore();
         Game game1 = store.publishGame("Арканоид", "Strategy");
         Game game = store.publishGame("Дота", "Strategy");
@@ -66,8 +66,20 @@ public class PlayerTest {
         player.play(game, 3);
 
         assertThrows(RuntimeException.class, () -> player.play(game1, 12));
-
     }
+    @Test
+    public void PlayTimeForNotInstalledGame() {
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Арканоид", "Strategy");
+        Game game = store.publishGame("Дота", "Strategy");
 
-    // другие ваши тесты
+        Player player = new Player("AndyScheglov");
+
+        player.play(game1, 8);
+        player.play(game, 3);
+
+        System.out.println(player.sumGenre("Strategy"));
+
+        assertThrows(RuntimeException.class, () -> player.sumGenre("Strategy"));
+    }
 }
