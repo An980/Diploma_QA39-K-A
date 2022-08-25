@@ -20,6 +20,8 @@ public class GameStoreTest {
 
     //22.08
 
+    //===============================тесты для метода containsGame
+
     @Test
     public void shouldAddSomeGames() {//добавить несколько игр
         GameStore store = new GameStore();
@@ -49,6 +51,8 @@ public class GameStoreTest {
         assertFalse(store.containsGame(null));
     }
 
+    //===============================тесты для метода getSumPlayedTime
+
     @Test
     public void shouldSumTwoPlayerTime() {//суммирование времени 2х игроков
 
@@ -57,7 +61,7 @@ public class GameStoreTest {
         store.addPlayTime("Player One", 10);
         store.addPlayTime("Player Two", 12);
 
-        Assertions.assertEquals(12, store.getSumPlayedTime());
+        assertEquals(12, store.getSumPlayedTime());
 
     }
 
@@ -69,12 +73,12 @@ public class GameStoreTest {
         store.addPlayTime("Player One", 0);
         store.addPlayTime("Player Two", 0);
 
-        Assertions.assertEquals(0, store.getSumPlayedTime());
+        assertEquals(0, store.getSumPlayedTime());
 
     }
 
     @Test
-    public void shouldSumSomePlayersTime() {//суммирование нулевого времени
+    public void shouldSumSomePlayersTime() {//суммирование с нулевым временем включительно
 
         GameStore store = new GameStore();
 
@@ -83,8 +87,83 @@ public class GameStoreTest {
         store.addPlayTime("Player Three", 0);
         store.addPlayTime("Player Four", 4);
 
-        Assertions.assertEquals(11, store.getSumPlayedTime());
+        assertEquals(11, store.getSumPlayedTime());
 
     }
+
+    //===============================тесты для метода getMostPlayer
+
+    @Test
+    public void shouldShowPlayerMostTimePlayed() {//показ игрока с наибольшим временем игры
+
+        GameStore store = new GameStore();
+
+        store.addPlayTime("Player One", 4);
+        store.addPlayTime("Player Two", 3);
+        store.addPlayTime("Player Three", 2);
+        store.addPlayTime("Player Four", 1);
+
+        assertEquals("Player One", store.getMostPlayer());
+
+    }
+
+    @Test
+    public void shouldShowPlayerZeroTime() {//ввод нулевых показателей времени (должен вернуть null)
+
+        GameStore store = new GameStore();
+
+        store.addPlayTime("Player One", 0);
+        store.addPlayTime("Player Two", 0);
+
+        assertEquals(null, store.getMostPlayer());
+
+    }
+
+    @Test
+    public void shouldShowPlayerNegativeTime() {//отрицательные значения (должен вернуть null)
+
+        GameStore store = new GameStore();
+
+        store.addPlayTime("Player One", -1);
+
+        assertEquals(null, store.getMostPlayer());
+
+    }
+
+    @Test
+    public void shouldShowPlayerOneHour() {//показ игрока с наибольшим временем игры (должен вернуть null)
+
+        GameStore store = new GameStore();
+
+        store.addPlayTime("Player One", 1);
+
+        assertEquals("Player One", store.getMostPlayer());
+
+    }
+
+    @Test
+    public void shouldShowEmptyStore() {//показ пустого каталога игроков
+
+        GameStore store = new GameStore();
+
+        assertEquals(null, store.getMostPlayer());
+
+    }
+
+
+    @Test
+    public void shouldShowSamePlayerTime() {//суммирование времени игроков
+
+        GameStore store = new GameStore();
+
+        store.addPlayTime("Player One", 5);
+        store.addPlayTime("Player One", 7);
+        store.addPlayTime("Player Two", 11);
+
+        assertEquals("Player One", store.getMostPlayer());
+
+    }
+
+
 
 }
