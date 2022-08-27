@@ -25,6 +25,7 @@ public class PlayerTest {
         Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
         Game game1 = store.publishGame("Пэкмэн", "Аркады");
 
+<<<<<<< HEAD
         Player player = new Player("Petya");
         player.installGame(game);
         player.installGame(game1);
@@ -82,4 +83,9 @@ public class PlayerTest {
 
         assertThrows(RuntimeException.class, () -> player.sumGenre("Strategy"));
     }
+
+
+
+    // другие ваши тесты
+
 }
