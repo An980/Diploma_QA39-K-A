@@ -25,7 +25,6 @@ public class PlayerTest {
         Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
         Game game1 = store.publishGame("Пэкмэн", "Аркады");
 
-<<<<<<< HEAD
         Player player = new Player("Petya");
         player.installGame(game);
         player.installGame(game1);
@@ -49,8 +48,8 @@ public class PlayerTest {
         player.play(game, 3);
         player.play(game1, 14);
 
-        Game expected3 = player.mostPlayerByGenre("Аркады");
-        String actual3 = game1.getTitle();
+        Game actual3 = player.mostPlayerByGenre("Аркады");
+        Game expected3 = game1.getTitle();
 
         assertEquals(expected3, actual3);
 

@@ -13,7 +13,7 @@ public class GameStoreTest {
 
         assertTrue(store.containsGame(game));
     }
-    
+
     //22.08
 
     //===============================тесты для метода containsGame
@@ -57,7 +57,7 @@ public class GameStoreTest {
         store.addPlayTime("Player One", 10);
         store.addPlayTime("Player Two", 12);
 
-        assertEquals(12, store.getSumPlayedTime());
+        assertEquals(22, store.getSumPlayedTime());
 
     }
 
