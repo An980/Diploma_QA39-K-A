@@ -1,3 +1,6 @@
 target
 *.iml
 .idea
+
+src/test/java/ru/netology/PlayerTest.java
+src/main/java/ru/netology/Player.java
