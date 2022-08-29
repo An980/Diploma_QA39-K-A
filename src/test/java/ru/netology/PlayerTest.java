@@ -5,13 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
+    GameStore store = new GameStore();
+    Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+    Game game1 = store.publishGame("Пэкмэн", "Аркады");
+    Game game2 = store.publishGame("Арканоид", "Экшн");
+    Game game3 = store.publishGame("Дота", "Стратегия");
 
-    @Test
+    Player player = new Player("Petya");
+    @Test   // Время суммируется даже если в жанре есть только одна игра
     public void shouldSumGenreIfOneGame() {
-        GameStore store = new GameStore();
-        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
-
-        Player player = new Player("Petya");
         player.installGame(game);
         player.play(game, 3);
 
@@ -20,33 +22,9 @@ public class PlayerTest {
 
         assertEquals(expected, actual);
     }
-    @Test
-       @Test
+
+    @Test //Выдача игры из жанра, в которую играли больше всего времени
     public void maxPlayTimeByGenre() {
-        GameStore store = new GameStore();
-        Game game1 = store.publishGame("Пэкмэн", "Аркады");
-        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
-
-        Player player = new Player("Petya");
-        player.installGame(game);
-        player.installGame(game1);
-        player.play(game, 3);
-        player.play(game1, 14);
-
-        Game actual3 = player.mostPlayerByGenre("Аркады");
-        Game expected3 = game1.getTitle();
-
-        assertEquals(expected3, actual3);
-
-    }
-   
-    @Test
-    public void maxPlayTimeByGenre() {//изменил тест
-        GameStore store = new GameStore();
-        Game game1 = store.publishGame("Пэкмэн", "Аркады");
-        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
-
-        Player player = new Player("Petya");
         player.installGame(game);
         player.installGame(game1);
         player.play(game, 3);
@@ -58,14 +36,12 @@ public class PlayerTest {
         assertEquals(expected3, actual3);
     }
 
-    @Test
+    @Test //Если игра не установлена, то выдача Run-time exception
     public void ifNotInstalledThanRunTimeException() {
-        Player player = new Player("AndyScheglov");
+        player.installGame(game3);
+        player.play(game3, 3);
 
-        player.installGame(game);
-        player.play(game, 3);
-
-        assertThrows(RuntimeException.class, () -> player.play(game1, 12));
+        assertThrows(RuntimeException.class, () -> player.play(game2, 12));
     }
     @Test //Игру скачали, не играли, максимум по жанру д.б. null
     public void NotPlayedNotCounted() {
