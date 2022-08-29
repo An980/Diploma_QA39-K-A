@@ -6,17 +6,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class GameStoreTest {
-
+    GameStore store = new GameStore();
     @Test
     public void shouldAddGame() {
-
-        GameStore store = new GameStore();
         Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
 
         assertTrue(store.containsGame(game));
     }
-
-    // другие ваши тесты
 
     //22.08
 
@@ -61,7 +57,7 @@ public class GameStoreTest {
         store.addPlayTime("Player One", 10);
         store.addPlayTime("Player Two", 12);
 
-        assertEquals(12, store.getSumPlayedTime());
+        assertEquals(22, store.getSumPlayedTime());
 
     }
 

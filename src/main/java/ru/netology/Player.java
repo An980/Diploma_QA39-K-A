@@ -73,10 +73,9 @@ public class Player {
                     hour = playedTime.get(game);
                     mostPlayedGame = game;
                 }
-        }
+            }
         return mostPlayedGame;
-    }
-
-}
+      }
+  }
 
 
