@@ -11,7 +11,7 @@ public class Player {
      * ключ - игра
      * значение - суммарное количество часов игры в эту игру
      */
-    private HashMap<Game, Integer> playedTime = new HashMap<>();
+    private Map<Game, Integer> playedTime = new HashMap<>();//замена HashMap на Map (вначале)
 
     public Player(String name) {
         this.name = name;
@@ -36,12 +36,12 @@ public class Player {
      * возвращает суммарное количество часов, проигранное в эту игру.
      * если игра не была установлена, то надо выкидывать RuntimeException
      */
-    public int play(Game game, int hours) {
+    public int play(Game game, int hours) {//добавил исключение, + hours
         game.getStore().addPlayTime(name, hours);
         if (playedTime.containsKey(game)) {
-            playedTime.put(game, playedTime.get(game));
+            playedTime.put(game, playedTime.get(game) + hours);
         } else {
-            playedTime.put(game, hours);
+            throw new RuntimeException("Игра с названием: " + game.getTitle() + " не установленна.");
         }
         return playedTime.get(game);
     }
@@ -55,8 +55,6 @@ public class Player {
         for (Game game : playedTime.keySet()) {
             if (game.getGenre().equals(genre)) {
                 sum += playedTime.get(game);
-            } else {
-                sum = 0;
             }
         }
         return sum;
@@ -66,7 +64,18 @@ public class Player {
      * Метод принимает жанр и возвращает игру этого жанра, в которую играли больше всего
      * Если в игры этого жанра не играли, возвращается null
      */
-    public Game mostPlayerByGenre(String genre) {
-        return null;
-    }
-}
+    public Game mostPlayerByGenre(String genre) {//переписал метод
+        int hour = 0;
+        Game mostPlayedGame = null;
+        for (Game game : playedTime.keySet()) {
+            if (game.getGenre().equals(genre))
+                if (hour < playedTime.get(game)) {
+                    hour = playedTime.get(game);
+                    mostPlayedGame = game;
+                }
+            }
+        return mostPlayedGame;
+      }
+  }
+
+
