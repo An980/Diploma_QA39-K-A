@@ -39,12 +39,7 @@ public class PlayerTest {
         assertEquals(expected3, actual3);
 
     }
-    @Test
-    public void ifNotInstalledThanRunTimeException() {
-        GameStore store = new GameStore();
-        Game game1 = store.publishGame("Арканоид", "Strategy");
-        Game game = store.publishGame("Дота", "Strategy");
-
+   
     @Test
     public void maxPlayTimeByGenre() {//изменил тест
         GameStore store = new GameStore();
